@@ -142,7 +142,7 @@ export default function Resume() {
             {/* Download Resume Button */}
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="pt-8">
                <a
-                  href="https://dgp5omkqm/65b305a410d940e1ecdea71342dfe125"
+                  href="../Onifade Ololade.pdf"
                   download
                   className="inline-flex items-center gap-3 px-8 py-4 rounded-xl gradient-purple text-white text-lg font-medium hover:opacity-90 transition-opacity group"
                >
