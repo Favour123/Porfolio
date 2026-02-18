@@ -182,8 +182,9 @@ export default function ContactForm() {
         setFormData({ name: "", email: "", message: "" });
         setIsSubmitted(false);
       }, 3000);
-    } catch (err: any) {
-      setError(err?.message || "Failed to send message.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      setError(message || "Failed to send message.");
     } finally {
       setIsSubmitting(false);
     }
@@ -210,7 +211,7 @@ export default function ContactForm() {
           Message Sent!
         </h3>
         <p className="text-(--color-text-secondary)">
-          Thank you for reaching out. I'll get back to you soon.
+          Thank you for reaching out. I&apos;ll get back to you soon.
         </p>
       </motion.div>
     );
