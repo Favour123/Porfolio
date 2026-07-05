@@ -1,4 +1,4 @@
-# Daniel Diya - Portfolio Website
+# Onifade Ololade Favour - Portfolio Website
 
 A modern, dark-themed portfolio website built with Next.js 15, Tailwind CSS v4, and Framer Motion.
 
@@ -123,4 +123,4 @@ MIT License - feel free to use this template for your own portfolio!
 
 ---
 
-Built with ❤️ by Daniel Diya
+Built with ❤️ by Onifade Ololade Favour

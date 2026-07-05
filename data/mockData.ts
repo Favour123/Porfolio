@@ -10,7 +10,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     platform: "linkedin",
     label: "LINKEDIN",
-    url: "https://linkedin.com/in/onifade-ololade",
+    url: "www.linkedin.com/in/onifade-ololade-favour-feranmi",
     icon: "Linkedin",
   },
   {
@@ -62,18 +62,44 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://vogue-vault1.vercel.app",
   },
   {
-    id: "study-timer",
+    id: "study-timer2",
     title: "Flowhub",
     description: "Implemented a secure authentication system with email/password login, protected routes and persistent session handling.Developed a comprehensive points  and filter rewards by status,Built a daily streak feature with check-in functionality and weekday progress indicators to drive user engagement.",
     image: "https://images.unsplash.com/photo-1660810731526-0720827cbd38?crop=entropy&cs=srgb&fm=jpg&q=85",
     technologies: ["React Js", "TypeScript", "TailwindCSS", "shadcn/ui", "Framer Motion", "Lucide React", "Zustand", "Supabase"],
-    liveUrl: "flowva-two.vercel.app",
+    liveUrl: "https://flowva-two.vercel.app",
+  },
+   {
+    id: "study-timer3",
+    title: "complanit system",
+    description: "Developed a responsive Complaint Management System using HTML5 and Express.js that enables users to submit complaints through an intuitive interface, incorporating real-time validation, responsive design, and cloud deployment on Vercel.",
+    image: "https://images.unsplash.com/photo-1660810731526-0720827cbd38?crop=entropy&cs=srgb&fm=jpg&q=85",
+    technologies: ["HTML5", "JavaScript", "TailwindCSS", "shadcn/ui", "Framer Motion", "Express.js", "MongoDB"],
+    liveUrl: "https://complaint-management-pi.vercel.app",
   },
 ];
 
 export const EXPERIENCES: Experience[] = [
   {
-    id: "kilefehomes",
+  id: "hybridsecconsult",
+  company: "HybridSec Consult",
+  position: "Backend Developer",
+  startDate: "Jul 2024",
+  endDate: null,
+  location: "Remote",
+  logo: "/icons/hybridsecconsult.svg",
+  responsibilities: [
+    "Developed and maintained secure backend APIs using Node.js, Express.js, and MongoDB for the organization's learning management platform.",
+    "Integrated Monnify and Paystack payment gateways, ensuring payment amounts were verified against MongoDB course records rather than client-supplied values.",
+    "Implemented secure Monnify webhook verification using HMAC-SHA512 signatures, prevented duplicate payment processing, and automated payment confirmation emails.",
+    "Strengthened application security by implementing Helmet, CORS, Express Rate Limit, Express Mongo Sanitize, centralized error handling, and Zod schema validation across API endpoints.",
+    "Developed role-based admin registration secured through invite tokens and super-admin authorization to prevent unauthorized account creation.",
+    "Validated public contact form submissions using Zod for input sanitization and data integrity.",
+    "Collaborated with the frontend team by supporting deployment and website management using Namecheap, while assisting with frontend integration and API consumption."
+  ],
+},
+  {
+    id: "medicx",
     company: "Medicx",
     position: "Frontend Developer",
     startDate: "Jul 2024",
@@ -87,7 +113,7 @@ export const EXPERIENCES: Experience[] = [
     ],
   },
   {
-    id: "kilefehomes",
+    id: "creditpay",
     company: "CreditPay",
     position: "Fullstack Developer",
     startDate: "Jul 2024",

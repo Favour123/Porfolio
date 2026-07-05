@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2 } from "lucide-react";
+import { Briefcase, Code2, Server } from "lucide-react";
 import { SERVICES } from "@/data/mockData";
+
+const iconMap = {
+  Code2,
+  Briefcase,
+  Server,
+} as const;
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -49,7 +55,10 @@ export default function About() {
               <div className="bg-(--color-bg-card) rounded-2xl p-8 h-full hover:bg-(--color-bg-card-hover) transition-all duration-300 shadow-md hover:shadow-xl">
                 <div className="flex gap-6">
                   <div className="w-16 h-16 rounded-xl gradient-purple flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Code2 className="w-8 h-8 text-white" />
+                    {(() => {
+                      const IconComponent = iconMap[service.icon as keyof typeof iconMap] ?? Code2;
+                      return <IconComponent className="w-8 h-8 text-white" />;
+                    })()}
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-xl font-semibold text-(--color-text-primary)">

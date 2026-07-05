@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Briefcase, GraduationCap, Download } from "lucide-react";
 import { EXPERIENCES, EDUCATION_LIST } from "@/data/mockData";
 import { formatDateRange } from "@/lib/utils";
@@ -35,8 +36,8 @@ export default function Resume() {
                   Web Development, strengthening my expertise in building scalable and user-focused applications.
                </p>
                <p className="text-lg text-(--color-text-secondary) leading-relaxed">
-                  I specialize in developing modern, responsive, and visually engaging web applications using React.js, Next.js, TypeScript, and TailwindCSS, transforming UI/UX designs into seamless,
-                  functional interfaces.
+                  I specialize in developing modern, responsive, and visually engaging web applications using React.js, Next.js, TypeScript, and TailwindCSS, while also building robust backend systems with Node.js,
+                  Express.js, TypeScript, MongoDB, and secure payment integrations such as Paystack and Monnify.
                </p>
                <p className="text-lg text-(--color-text-secondary) leading-relaxed">
                   In addition, my Executive Assistant and Virtual Assistant certifications from Udemy have enhanced my organizational, communication, and project coordination skills, allowing me to
@@ -67,8 +68,14 @@ export default function Resume() {
 
                      <div className="bg-(--color-bg-card) rounded-2xl p-6 hover:bg-(--color-bg-card-hover) transition-colors">
                         <div className="flex items-start gap-6">
-                           <div className="w-16 h-16 rounded-xl bg-(--color-bg-secondary) flex items-center justify-center flex-shrink-0">
-                              <Briefcase className="w-8 h-8 text-(--color-accent-primary)" />
+                           <div className="w-16 h-16 rounded-xl bg-(--color-bg-secondary) flex items-center justify-center flex-shrink-0 overflow-hidden">
+                              <Image
+                                 src={exp.logo}
+                                 alt={`${exp.company} logo`}
+                                 width={64}
+                                 height={64}
+                                 className="object-contain p-2"
+                              />
                            </div>
                            <div className="flex-1 space-y-3">
                               <div className="flex items-start justify-between flex-wrap gap-4">
