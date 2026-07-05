@@ -24,7 +24,7 @@ export default function About() {
       <motion.section {...fadeInUp} className="space-y-6">
         <div className="space-y-4">
           <p className="text-lg text-(--color-text-secondary) leading-relaxed">
-            Hello, I&apos;m Favour, a passionate software developer and lifelong learner from Osun, Nigeria. I specialize in transforming beautiful designs into responsive, adaptable, and engaging websites.
+            Hello, I&apos;m Favour, a passionate software developer and lifelong learner from Lagos, Nigeria. I specialize in transforming beautiful designs into responsive, adaptable, and engaging websites.
           </p>
           <p className="text-lg text-(--color-text-secondary) leading-relaxed">
             My goal is to create the website you envision combining functionality with user-friendly design, without sacrificing aesthetics or interactivity.
