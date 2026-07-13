@@ -142,7 +142,7 @@ export const EXPERIENCES: Experience[] = [
     company: "CreditPay",
     position: "Fullstack Developer",
     startDate: "Jul 2024",
-    endDate: null,
+    endDate: "Jan 2025",
     location: "Remote",
     logo: "/icons/kilefehomes.svg",
     responsibilities: [
