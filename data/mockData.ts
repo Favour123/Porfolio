@@ -77,6 +77,31 @@ export const PROJECTS: Project[] = [
     technologies: ["HTML5", "JavaScript", "TailwindCSS", "shadcn/ui", "Framer Motion", "Express.js", "MongoDB"],
     liveUrl: "https://complaint-management-pi.vercel.app",
   },
+  {
+  id: "greenacy-clone",
+  title: "Greenacy Clone",
+  description:
+    "Developed a full-stack Greenacy clone using React, TypeScript, Node.js, and MongoDB. Built a responsive, modern user interface with Tailwind CSS and shadcn/ui, integrated secure JWT authentication, RESTful APIs, and MongoDB for persistent data storage, delivering a scalable and seamless user experience.",
+  image:
+    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?crop=entropy&cs=srgb&fm=jpg&q=85",
+  technologies: [
+    "React",
+    "TypeScript",
+    "Vite",
+    "Tailwind CSS",
+    "shadcn/ui",
+    "Framer Motion",
+    "React Router",
+    "Axios",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Mongoose",
+    "JWT",
+    "bcrypt"
+  ],
+  liveUrl: "https://greenacy-clone.vercel.app",
+},
 ];
 
 export const EXPERIENCES: Experience[] = [
