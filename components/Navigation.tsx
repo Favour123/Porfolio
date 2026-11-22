@@ -1,7 +1,7 @@
 import { BrandMark } from "./Icons";
 
 interface NavigationProps {
-  current?: "home" | "work" | "resume" | "contact";
+  current?: "home" | "work" | "resume" | "contact" | "none";
 }
 
 export default function Navigation({ current = "home" }: NavigationProps) {

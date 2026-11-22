@@ -119,6 +119,7 @@ footer.closing .closing__cta .section-head { gap: var(--s-3); }
 /* Sub-page long content sections (Resume & Portfolio) flow naturally without excessive vertical dead space */
 main > section.flow-section { height: auto; min-height: 0; padding-block: var(--s-9) var(--s-8); }
 main > section.hero.flow-section { min-height: 100svh; padding-top: calc(var(--nav) + var(--hgap)); padding-bottom: var(--hpadb); }
+@media (max-width: 1023px) { .hero--split.flow-section .hero__grid { gap: var(--s-6); } }
 .role-list { display: grid; gap: var(--s-6); }
 .role-item { padding-bottom: var(--s-5); border-bottom: 1px solid var(--line); display: grid; gap: var(--s-3); }
 .role-item:last-child { border-bottom: 0; padding-bottom: 0; }
