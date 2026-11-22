@@ -13,16 +13,22 @@ export interface Service {
   id: string;
   icon: string;
   title: string;
+  tag: string;
   description: string;
+  resumeOnly?: boolean;
 }
 
 export interface Project {
   id: string;
   title: string;
+  summary: string;
   description: string;
   image: string;
+  imageSm: string;
+  alt: string;
   technologies: string[];
   liveUrl: string;
+  featured?: boolean;
 }
 
 export interface Experience {
@@ -32,7 +38,7 @@ export interface Experience {
   startDate: string;
   endDate: string | null;
   location: string;
-  logo: string;
+  summary: string;
   responsibilities: string[];
 }
 
@@ -43,7 +49,19 @@ export interface Education {
   startDate: string;
   endDate: string;
   location?: string;
-  logo: string;
+}
+
+export interface SkillGroup {
+  id: string;
+  category: string;
+  items: string;
+}
+
+export interface StackTool {
+  id: string;
+  name: string;
+  icon?: string;
+  ink?: boolean;
 }
 
 export interface ContactFormData {

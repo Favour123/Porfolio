@@ -1,163 +1,225 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { Briefcase, GraduationCap, Download } from "lucide-react";
-import { EXPERIENCES, EDUCATION_LIST } from "@/data/mockData";
+import type { Metadata } from "next";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { ArrowGlyph, StackIconRow } from "@/components/Icons";
+import {
+  CORE_SKILL_GROUPS,
+  EDUCATION_LIST,
+  EXPERIENCES,
+  LEADERSHIP_EXPERIENCES,
+  OWNER,
+} from "@/data/mockData";
 import { formatDateRange } from "@/lib/utils";
 
-const fadeInUp = {
-   initial: { opacity: 0, y: 60 },
-   whileInView: { opacity: 1, y: 0 },
-   viewport: { once: true, margin: "-100px" },
-   transition: { duration: 0.6 },
+export const metadata: Metadata = {
+  title: "Resume: Onifade Ololade Favour, full-stack software engineer",
+  description:
+    "Full-stack engineering, software security (OWASP Top 10, CodeQL, Argon2id, RBAC), PostgreSQL, SQL, NestJS 11, Supabase, Firebase, Appwrite, and healthcare HR experience at Seventh-day Adventist Hospital.",
 };
 
-export default function Resume() {
-   return (
-      <div className="space-y-12 ">
-         {/* Header */}
-         <motion.section {...fadeInUp}>
-            <div className="relative inline-block">
-               <h1 className="text-4xl font-bold text-(--color-text-primary)">Resume</h1>
-               <div className="h-1 w-20 gradient-purple rounded-full mt-3" />
-            </div>
-         </motion.section>
+export default function ResumePage() {
+  return (
+    <>
+      <Navigation current="resume" />
 
-         {/* Profile */}
-         <motion.section {...fadeInUp} className="space-y-6">
-            <div className="relative inline-block">
-               <h2 className="text-2xl font-bold text-(--color-text-primary)">PROFILE</h2>
-               <div className="h-1 w-16 gradient-purple rounded-full mt-2" />
-            </div>
-            <div className="space-y-4">
-               <p className="text-lg text-(--color-text-secondary) leading-relaxed">
-                  As a Computer Science graduate from Adeleke University, I have built a strong foundation in software development and modern web technologies. I also hold a certification in Frontend
-                  Web Development, strengthening my expertise in building scalable and user-focused applications.
-               </p>
-               <p className="text-lg text-(--color-text-secondary) leading-relaxed">
-                  I specialize in developing modern, responsive, and visually engaging web applications using React.js, Next.js, TypeScript, and TailwindCSS, while also building robust backend systems with Node.js,
-                  Express.js, TypeScript, MongoDB, and secure payment integrations such as Paystack and Monnify.
-               </p>
-               <p className="text-lg text-(--color-text-secondary) leading-relaxed">
-                  In addition, my Executive Assistant and Virtual Assistant certifications from Udemy have enhanced my organizational, communication, and project coordination skills, allowing me to
-                  collaborate effectively, manage tasks efficiently, and deliver high-quality digital solutions.
-               </p>
-            </div>
-         </motion.section>
-
-         {/* Professional Experience */}
-         <motion.section {...fadeInUp} className="space-y-8">
-            <div className="relative inline-block">
-               <h2 className="text-2xl font-bold text-(--color-text-primary)">PROFESSIONAL EXPERIENCE</h2>
-               <div className="h-1 w-16 gradient-purple rounded-full mt-2" />
-            </div>
-
-            <div className="space-y-8">
-               {EXPERIENCES.map((exp, index) => (
-                  <motion.div
-                     key={exp.id}
-                     initial={{ opacity: 0, x: -60 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true, margin: "-50px" }}
-                     transition={{ duration: 0.6, delay: index * 0.2 }}
-                     className="relative pl-12 pb-8 border-l-2 border-(--color-border) last:border-l-0 last:pb-0"
+      <main id="top">
+        <section
+          className="hero hero--split"
+          data-enter=""
+          aria-labelledby="resume-h"
+        >
+          <div className="wrap">
+            <div className="hero-text grid hero__grid">
+              <div className="hero__text span-5">
+                <p className="hero__kicker">
+                  <span className="dot" aria-hidden="true" />
+                  B.Sc. Computer Science · Adeleke University (2025)
+                </p>
+                <h1 id="resume-h">Resume for Onifade Ololade Favour</h1>
+                <p className="hero__lead">
+                  Full-Stack Software Engineer in Maryland, Ikeja, Lagos
+                  building healthcare HR systems in NestJS 11, React,
+                  PostgreSQL, SQL, MongoDB, Supabase, Firebase, and Appwrite
+                  with OWASP Top 10 security.
+                </p>
+                <div className="btn-row">
+                  <a className="btn btn--primary" href="/contact/">
+                    Send a message
+                    <ArrowGlyph />
+                  </a>
+                  <a
+                    className="btn btn--secondary"
+                    href={OWNER.resumePdf}
+                    download
                   >
-                     {/* Timeline dot */}
-                     <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full gradient-purple border-4 border-(--color-bg-primary)" />
+                    Download resume
+                  </a>
+                </div>
+              </div>
 
-                     <div className="bg-(--color-bg-card) rounded-2xl p-6 hover:bg-(--color-bg-card-hover) transition-colors">
-                        <div className="flex items-start gap-6">
-                           <div className="w-16 h-16 rounded-xl bg-(--color-bg-secondary) flex items-center justify-center flex-shrink-0 overflow-hidden">
-                              <Image
-                                 src={exp.logo}
-                                 alt={`${exp.company} logo`}
-                                 width={64}
-                                 height={64}
-                                 className="object-contain p-2"
-                              />
-                           </div>
-                           <div className="flex-1 space-y-3">
-                              <div className="flex items-start justify-between flex-wrap gap-4">
-                                 <div>
-                                    <h3 className="text-2xl font-bold text-(--color-text-primary)">{exp.company}</h3>
-                                    <p className="text-lg text-(--color-accent-primary) italic">{exp.position}</p>
-                                 </div>
-                                 <div className="text-right text-sm text-(--color-text-muted)">
-                                    <p>{formatDateRange(exp.startDate, exp.endDate)}</p>
-                                    <p>{exp.location}</p>
-                                 </div>
-                              </div>
-                              <ul className="space-y-2 list-disc list-inside text-(--color-text-secondary)">
-                                 {exp.responsibilities.map((resp, idx) => (
-                                    <li key={idx} className="leading-relaxed">
-                                       {resp}
-                                    </li>
-                                 ))}
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </motion.div>
-               ))}
+              <div className="hero__media span-6 start-7">
+                <img
+                  src="/projects/cms-about.jpg"
+                  srcSet="/projects/cms-about-sm.jpg 640w, /projects/cms-about.jpg 1200w"
+                  sizes="(max-width: 639px) 342px, 1200px"
+                  alt="Complaint Management System deployed web interface showing university mission layout"
+                  width={1200}
+                  height={900}
+                  style={{ ["--ly-pos" as string]: "50% 0%" }}
+                  fetchPriority="high"
+                  data-source="client"
+                  data-subject="CMS deployed web interface"
+                />
+                <div className="ly-float">
+                  <div className="ly-float__row">
+                    <span className="ly-live">PDF available</span>
+                    <span>2026</span>
+                  </div>
+                  <div className="ly-float__title">Onifade Ololade.pdf</div>
+                </div>
+              </div>
             </div>
-         </motion.section>
+          </div>
+        </section>
 
-         {/* Education */}
-         <motion.section {...fadeInUp} className="space-y-8">
-            <div className="relative inline-block">
-               <h2 className="text-2xl font-bold text-(--color-text-primary)">EDUCATION</h2>
-               <div className="h-1 w-16 gradient-purple rounded-full mt-2" />
+        {/* Core Skills & Software Security Matrix */}
+        <section
+          className="section flow-section ground-surface"
+          id="skills"
+          aria-labelledby="skills-h"
+        >
+          <div className="wrap stack-6">
+            <div className="section-head">
+              <h2 id="skills-h">Core engineering and security skills</h2>
+              <p>
+                Full-stack web frameworks, relational and document databases,
+                BaaS platforms, OWASP Top 10 security testing, and AI operations.
+              </p>
             </div>
 
-            <div className="space-y-8">
-               {EDUCATION_LIST.map((edu, index) => (
-                  <motion.div
-                     key={edu.id}
-                     initial={{ opacity: 0, x: 60 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true, margin: "-50px" }}
-                     transition={{ duration: 0.6, delay: index * 0.2 }}
-                     className="relative pl-12 pb-8 border-l-2 border-(--color-border) last:border-l-0 last:pb-0"
-                  >
-                     {/* Timeline dot */}
-                     <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full gradient-purple border-4 border-(--color-bg-primary)" />
+            <StackIconRow />
 
-                     <div className="bg-(--color-bg-card) rounded-2xl p-6 hover:bg-(--color-bg-card-hover) transition-colors">
-                        <div className="flex items-start gap-6">
-                           <div className="w-16 h-16 rounded-xl bg-(--color-bg-secondary) flex items-center justify-center flex-shrink-0">
-                              <GraduationCap className="w-8 h-8 text-(--color-accent-primary)" />
-                           </div>
-                           <div className="flex-1 space-y-2">
-                              <div className="flex items-start justify-between flex-wrap gap-4">
-                                 <div>
-                                    <h3 className="text-2xl font-bold text-(--color-text-primary)">{edu.degree}</h3>
-                                    <p className="text-lg text-(--color-text-secondary) italic">{edu.institution}</p>
-                                 </div>
-                                 <div className="text-right text-sm text-(--color-text-muted)">
-                                    <p>{edu.startDate ? formatDateRange(edu.startDate, edu.endDate) : edu.endDate}</p>
-                                    {edu.location && <p>{edu.location}</p>}
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </motion.div>
-               ))}
+            <div className="skill-grid">
+              {CORE_SKILL_GROUPS.map((group) => (
+                <div key={group.id} className="skill-card">
+                  <h3>{group.category}</h3>
+                  <p>{group.items}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Software Engineering & AI Experience (6 roles) */}
+        <section
+          className="section flow-section"
+          id="roles"
+          aria-labelledby="roles-h"
+        >
+          <div className="wrap grid grid--top">
+            <div className="span-4">
+              <div className="section-head">
+                <h2 id="roles-h">Software engineering and AI experience</h2>
+                <p>
+                  End-to-end Healthcare HR architecture at Seventh-day Adventist
+                  Hospital, 10x image optimization at Medicx, AI engineering at
+                  FlyRank AI, and payment-backed APIs for 100+ students at HSC
+                  Consult.
+                </p>
+              </div>
+              <p>
+                <a className="link" href={OWNER.resumePdf} download>
+                  Download resume PDF
+                </a>
+              </p>
             </div>
 
-            {/* Download Resume Button */}
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="pt-8">
-               <a
-                  href="../Onifade Ololade.pdf"
-                  download
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-xl gradient-purple text-white text-lg font-medium hover:opacity-90 transition-opacity group"
-               >
-                  Download my resume
-                  <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-               </a>
-            </motion.div>
-         </motion.section>
-      </div>
-   );
+            <div className="role-list span-7 start-6">
+              {EXPERIENCES.map((exp) => (
+                <article key={exp.id} className="role-item">
+                  <div className="role-head">
+                    <h3>
+                      {exp.position} · {exp.company}
+                    </h3>
+                    <span className="t-small muted">
+                      {formatDateRange(exp.startDate, exp.endDate)} ·{" "}
+                      {exp.location}
+                    </span>
+                  </div>
+                  <ul className="role-bullets">
+                    {exp.responsibilities.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Administrative, Leadership, Virtual Assistance & Education */}
+        <section
+          className="section flow-section ground-surface"
+          id="education"
+          aria-labelledby="education-h"
+        >
+          <div className="wrap grid grid--top">
+            <div className="span-5 stack-6">
+              <div className="section-head">
+                <h2 id="education-h">Education and certifications</h2>
+                <p>
+                  Computer Science degree from Adeleke University alongside
+                  technical, AI fluency, and executive operations credentials.
+                </p>
+              </div>
+              <ul className="rows">
+                {EDUCATION_LIST.map((edu) => (
+                  <li key={edu.id}>
+                    <span className="rows__name">
+                      {edu.degree}
+                      <small>
+                        {edu.institution}
+                        {edu.location ? ` · ${edu.location}` : ""}
+                      </small>
+                    </span>
+                    <span className="rows__value">
+                      {edu.startDate === edu.endDate
+                        ? edu.endDate
+                        : formatDateRange(edu.startDate, edu.endDate)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="role-list span-6 start-7">
+              <div className="section-head" style={{ marginBottom: 0 }}>
+                <h3>Administrative, leadership and virtual operations</h3>
+              </div>
+              {LEADERSHIP_EXPERIENCES.map((exp) => (
+                <article key={exp.id} className="role-item">
+                  <div className="role-head">
+                    <h3>
+                      {exp.position} · {exp.company}
+                    </h3>
+                    <span className="t-small muted">
+                      {formatDateRange(exp.startDate, exp.endDate)} ·{" "}
+                      {exp.location}
+                    </span>
+                  </div>
+                  <ul className="role-bullets">
+                    {exp.responsibilities.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer ctaHref="/contact/" />
+    </>
+  );
 }

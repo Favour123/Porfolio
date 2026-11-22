@@ -1,163 +1,78 @@
-"use client";
+import { OWNER } from "@/data/mockData";
+import { ArrowGlyph } from "./Icons";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
-import type { ContactFormData } from "@/types";
+interface ContactFormProps {
+  idPrefix?: string;
+}
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xgolzpor";
-
-export default function ContactForm() {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json().catch(() => null);
-
-      if (!res.ok) {
-        // Formspree usually returns { errors: [...] }
-        const msg =
-          data?.errors?.[0]?.message ||
-          "Something went wrong. Please try again.";
-        throw new Error(msg);
-      }
-
-      setIsSubmitted(true);
-
-      // reset after a bit
-      setTimeout(() => {
-        setFormData({ name: "", email: "", message: "" });
-        setIsSubmitted(false);
-      }, 3000);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      setError(message || "Failed to send message.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  if (isSubmitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center py-20 space-y-4"
-      >
-        <CheckCircle className="w-20 h-20 text-green-500" />
-        <h3 className="text-2xl font-bold text-(--color-text-primary)">
-          Message Sent!
-        </h3>
-        <p className="text-(--color-text-secondary)">
-          Thank you for reaching out. I&apos;ll get back to you soon.
-        </p>
-      </motion.div>
-    );
-  }
-
+export default function ContactForm({ idPrefix = "f" }: ContactFormProps) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Error message */}
-      {error && (
-        <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-red-500">
-          <AlertCircle className="w-5 h-5 mt-0.5" />
-          <p className="text-sm">{error}</p>
-        </div>
-      )}
-
-      {/* Name Input */}
-      <div>
+    <form
+      className="form"
+      action={OWNER.formEndpoint}
+      method="post"
+      data-endpoint={OWNER.formEndpoint}
+      data-sent="Your message has been sent. Onifade Ololade will review it from Formspree."
+      data-sending="Sending your message"
+      data-failed="Could not send the message right now. Your details are still in the fields; try again."
+      noValidate
+    >
+      <div className="field">
+        <label htmlFor={`${idPrefix}-name`}>Your name</label>
         <input
-          type="text"
+          id={`${idPrefix}-name`}
           name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Your name"
+          type="text"
+          autoComplete="name"
           required
-          className="w-full px-6 py-4 rounded-xl bg-(--color-bg-card) border border-(--color-border) text-(--color-text-primary) placeholder:text-(--color-text-muted) focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition-all"
+          aria-describedby={`${idPrefix}-name-err`}
         />
+        <p className="field__error" id={`${idPrefix}-name-err`} hidden>
+          Write your name so I know who to reply to.
+        </p>
       </div>
 
-      {/* Email Input */}
-      <div>
+      <div className="field">
+        <label htmlFor={`${idPrefix}-email`}>Email address</label>
         <input
-          type="email"
+          id={`${idPrefix}-email`}
           name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Your email"
+          type="email"
+          autoComplete="email"
+          inputMode="email"
           required
-          className="w-full px-6 py-4 rounded-xl bg-(--color-bg-card) border border-(--color-border) text-(--color-text-primary) placeholder:text-(--color-text-muted) focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition-all"
+          aria-describedby={`${idPrefix}-email-err`}
         />
+        <p className="field__error" id={`${idPrefix}-email-err`} hidden>
+          Write an email address with an @, such as name@company.com.
+        </p>
       </div>
 
-      {/* Message Textarea */}
-      <div>
+      <div className="field field--full">
+        <label htmlFor={`${idPrefix}-message`}>Project or role details</label>
         <textarea
+          id={`${idPrefix}-message`}
           name="message"
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Your message"
+          rows={3}
           required
-          rows={6}
-          className="w-full px-6 py-4 rounded-xl bg-(--color-bg-card) border border-(--color-border) text-(--color-text-primary) placeholder:text-(--color-text-muted) focus:border-(--color-accent-primary) focus:outline-none focus:ring-2 focus:ring-(--color-accent-primary)/20 transition-all resize-none"
+          aria-describedby={`${idPrefix}-message-err`}
         />
+        <p className="field__error" id={`${idPrefix}-message-err`} hidden>
+          Write a short note on the role, product scope, or timeline.
+        </p>
       </div>
 
-      {/* Submit Button */}
-      <motion.button
-        type="submit"
-        disabled={isSubmitting}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="inline-flex items-center gap-3 px-8 py-4 rounded-xl gradient-purple text-white text-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed group"
-      >
-        {isSubmitting ? (
-          <>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-            />
-            Sending...
-          </>
-        ) : (
-          <>
-            Send message
-            <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </>
-        )}
-      </motion.button>
+      <div className="btn-row">
+        <button className="btn btn--primary" type="submit">
+          Send a message
+          <ArrowGlyph />
+        </button>
+      </div>
+
+      <p className="form__status" role="status" data-form-status="" />
+      <p className="t-small muted">
+        Submissions post directly to Formspree. No account or sign-in required.
+      </p>
     </form>
   );
 }
