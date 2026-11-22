@@ -19,7 +19,7 @@ const ANCHOR_MAP: Record<string, string> = {
 };
 
 const DISPLAY_TITLES: Record<string, string> = {
-  anettcom: "Hope Foundation NGO platform",
+  anettcom: "Hope Foundation NGO web app",
   "greenacy-clone": "Greenacy climate web app",
   "study-timer3": "Complaint Management web portal",
   "study-timer": "Vogue Vault fashion storefront",

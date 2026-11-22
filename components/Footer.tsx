@@ -25,7 +25,8 @@ export default function Footer({
                 : "Start your next web build"}
             </h2>
             <p>
-              React, Next.js, NestJS, and security for remote teams.
+              React, Next.js, NestJS 11, PostgreSQL, and OWASP security
+              engineering for remote product teams.
             </p>
           </div>
           {hideCloseCta ? (

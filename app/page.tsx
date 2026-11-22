@@ -93,7 +93,7 @@ export default function HomePage() {
           <div className="wrap grid grid--top">
             <div className="span-5 stack-4">
               <div className="section-head">
-                <h2 id="services-h">Web development and security services</h2>
+                <h2 id="services-h">Web and security services</h2>
               </div>
               <ul className="rows">
                 {coreServices.map((service) => (
@@ -274,6 +274,8 @@ export default function HomePage() {
                       alt="Greenacy about view showing structured three-column mission cards on deep green"
                       width={1200}
                       height={900}
+                      loading="lazy"
+                      decoding="async"
                       data-source="client"
                       data-subject="Greenacy mission layout"
                     />
@@ -294,6 +296,8 @@ export default function HomePage() {
                       alt="Hope Foundation about view showing mission and vision layout cards on warm cream"
                       width={1200}
                       height={900}
+                      loading="lazy"
+                      decoding="async"
                       data-source="client"
                       data-subject="Hope Foundation about page"
                     />
@@ -314,6 +318,8 @@ export default function HomePage() {
                       alt="Hope Foundation get-involved page showing donation and volunteer action cards"
                       width={1200}
                       height={900}
+                      loading="lazy"
+                      decoding="async"
                       data-source="client"
                       data-subject="Hope Foundation involvement page"
                     />
@@ -322,7 +328,7 @@ export default function HomePage() {
               </ol>
               <p>
                 <a className="link" href="/portfolio/">
-                  Browse live deployments
+                  See live builds
                 </a>
               </p>
             </div>
@@ -357,7 +363,7 @@ export default function HomePage() {
               </ul>
               <p>
                 <a className="link" href="/resume/">
-                  Read full resume (6 roles)
+                  Read full resume
                 </a>
               </p>
             </div>
@@ -396,9 +402,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            <figure className="frame frame--photo split-media span-6 start-7">
+            <figure className="enquiry-media span-6 start-7">
               <img
-                className="frame__img"
                 src="/projects/cms-portal.jpg"
                 srcSet="/projects/cms-portal-sm.jpg 640w, /projects/cms-portal.jpg 1200w"
                 sizes="(max-width: 639px) 342px, 1200px"

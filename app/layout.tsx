@@ -52,11 +52,15 @@ const DEAL_TOKENS_AND_PAGE_CSS = `
   --display-tracking-xl: -0.042em;
   --ly-scale: 0.98;
 }
+@media (min-width: 1024px) { :root { --ly-scale: 0.88; } }
 
-/* Page CSS: visual framing, stack chips, form panel, and responsive rhythm */
+/* Page CSS: visual framing, stack chips, form panel, micro-interactions, and responsive rhythm */
 .rows .rows__name small { display: block; font-weight: 400; color: var(--muted); font-size: var(--t-small); margin-top: 2px; }
-.stack-icons { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-2); margin-top: var(--s-2); }
-.stack-icons .ic-chip { width: 100%; justify-content: flex-start; height: 32px; padding: 0 var(--s-2); font-size: var(--t-small); background: var(--surface); border: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stack-icons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); margin-top: var(--s-2); }
+@media (min-width: 640px) and (max-width: 1023px) { .stack-icons { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .stack-icons { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+#skills .stack-icons { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stack-icons .ic-chip { width: 100%; justify-content: flex-start; height: 32px; padding: 0 var(--s-2); font-size: var(--t-small); background: var(--surface); border: 1px solid var(--line); white-space: nowrap; transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease); }
 .stack-icons .ic-chip img { width: 16px; height: 16px; object-fit: contain; flex: none; }
 
 .approach-wrap { gap: var(--s-7); justify-content: flex-start; }
@@ -66,24 +70,45 @@ const DEAL_TOKENS_AND_PAGE_CSS = `
 .approach-facts dt { font-size: var(--t-small); font-weight: 500; color: var(--muted); }
 .approach-facts dd { margin: 0; font-size: var(--t-body); line-height: 1.5; color: var(--ink); }
 
-.enquiry-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-5); align-self: start; }
+.enquiry-panel { align-self: start; }
 .enquiry-panel .form { gap: var(--s-3); }
-.enquiry-panel .field :is(input, select, textarea) { background: var(--bg); }
 .enquiry-panel textarea { min-height: 84px; }
+@media (min-width: 1024px) {
+  .enquiry-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-5); }
+  .enquiry-panel .field :is(input, select, textarea) { background: var(--bg); }
+}
 
 /* Keep pinned-chapters sticky stage at 100svh on 1024-1279 so flex: 1 0 auto in system.css never stretches it */
 main > [data-moment="pinned-chapters"].is-live > .mo-pc__grid { flex: 0 0 auto; height: 100svh; }
 
-.split-media { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: auto; height: 520px; align-self: start; }
-@media (min-width: 1280px) { .split-media { height: 560px; } }
-.split-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+.split-media, .enquiry-media { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: auto; height: 480px; align-self: start; background: var(--surface); margin: 0; }
+@media (min-width: 1280px) { .split-media, .enquiry-media { height: 520px; } }
+.split-media > img, .enquiry-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
 .tile__media > img { object-position: 50% 0%; }
 .mo-pc__visual > img { object-position: 50% 0%; }
 
-/* Tighter tile ratios on work/portfolio rows so titles and descriptions never clip or bleed into the next section */
-#work .tile, #all-projects .tile { --tile-ratio: 16 / 10; }
+/* Sleek, proportional past-work image sizing on Home and Portfolio */
+#work .tile, #all-projects .tile { --tile-ratio: 16 / 9; }
 #more-projects .tile { --tile-ratio: 16 / 9; }
+#all-projects .tile__media { width: 100%; aspect-ratio: auto; height: 225px; }
+#more-projects .tile__media { width: 100%; aspect-ratio: auto; height: 280px; }
 #work .section-head, #all-projects .section-head, #more-projects .section-head { margin-bottom: var(--s-5); }
+
+/* Tactile hover micro-interactions aligned with motion.md (fine pointer only; reduced-motion keeps colour only) */
+.tile__media { transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.tile__head > h3 { transition: color var(--dur) var(--ease); }
+.rows > li, .role-item, .skill-card { transition: border-color var(--dur) var(--ease); }
+.footer__legal .socials a { transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  a.tile:hover .tile__media { transform: translateY(-2px); box-shadow: 0 12px 24px -16px rgb(0 0 0 / .24); }
+  a.tile:hover .tile__head > h3 { color: var(--action); }
+  .stack-icons .ic-chip:hover { border-color: var(--line-strong); background: color-mix(in oklab, var(--surface) 75%, var(--bg)); }
+  .rows > li:hover, .role-item:hover, .skill-card:hover { border-color: var(--line-strong); }
+  .footer__legal .socials a:hover { transform: translateY(-1px); border-color: var(--ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.tile:hover .tile__media, .footer__legal .socials a:hover { transform: none; }
+}
 
 /* Keep footer CTA and directory cleanly separated even on compact laptop screens */
 footer.closing > .wrap { row-gap: var(--s-6); }
@@ -91,8 +116,9 @@ footer.closing .closing__cta { gap: var(--s-4); }
 footer.closing .closing__links { gap: var(--s-5); }
 footer.closing .closing__cta .section-head { gap: var(--s-3); }
 
-/* Sub-page long content sections (Resume & Portfolio) flow naturally so multi-role records never clip */
-main > section.flow-section { height: auto; min-height: 100svh; }
+/* Sub-page long content sections (Resume & Portfolio) flow naturally without excessive vertical dead space */
+main > section.flow-section { height: auto; min-height: 0; padding-block: var(--s-9) var(--s-8); }
+main > section.hero.flow-section { min-height: 100svh; padding-top: calc(var(--nav) + var(--hgap)); padding-bottom: var(--hpadb); }
 .role-list { display: grid; gap: var(--s-6); }
 .role-item { padding-bottom: var(--s-5); border-bottom: 1px solid var(--line); display: grid; gap: var(--s-3); }
 .role-item:last-child { border-bottom: 0; padding-bottom: 0; }
@@ -119,39 +145,67 @@ main > section.flow-section { height: auto; min-height: 100svh; }
 /* Tablet (640-1023): every section fits strictly on its 1-screen grid (1024px / 1180px), clean 40px split gap, full-width XL button */
 @media (min-width: 640px) and (max-width: 1023px) {
   main > section > .wrap.grid { row-gap: 40px; }
-  .split-media { aspect-ratio: auto; height: clamp(295px, 30svh, 355px); }
-  .enquiry-panel { padding: var(--s-4) var(--s-5); }
+  .split-media, .enquiry-media { aspect-ratio: auto; height: clamp(295px, 30svh, 355px); }
   .closing__cta.close--type > .btn--xl:not(.btn--wide) { width: 100%; }
-  #work .section-head { margin-bottom: var(--s-4); }
-  #work .tile:nth-child(3) { --tile-ratio: 5 / 2; }
+  #work .section-head { margin-bottom: var(--s-4); gap: var(--s-2); }
+  #work .grid { row-gap: var(--s-4); }
+  #work .tile { gap: var(--s-2); --tile-ratio: 16 / 9; }
+  #work .tile__facts { margin-top: 0; }
+  #work .tile:nth-child(3) .tile__media { aspect-ratio: auto; height: 210px; }
+  #more-projects .tile__media { width: 100%; height: 230px; }
   #process:not(.is-live) .mo-pc__text { gap: var(--s-4); }
   #process:not(.is-live) .mo-pc__steps { gap: var(--s-4); }
   #process:not(.is-live) .mo-pc__step { padding-top: var(--s-4); }
   #process:not(.is-live) .mo-pc__visual > img { max-height: 18svh; aspect-ratio: 16 / 10; }
+  footer.closing .closing__cta { gap: var(--s-6); padding-top: var(--s-4); }
+  footer.closing .closing__links { gap: var(--s-7); }
+  footer.closing .footer__col ul { gap: var(--s-4); }
+  footer.closing .footer__legal { padding-top: var(--s-6); }
 }
 
-/* Phone (<640): compact 1-screen sections (844px) and exact 2-screen pinned-chapters (1688px) */
+/* Phone (<640): compact 1-screen sections (844px), centered social buttons, clean full-width row copy, exact 2-screen pinned-chapters (1688px) */
 @media (max-width: 639px) {
-  main > section > .wrap.grid { row-gap: 32px; }
-  .stack-icons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stack-icons .ic-chip { height: 28px; padding: 0 var(--s-2); font-size: var(--t-label); }
-  .approach-wrap { gap: var(--s-5); }
+  main > section > .wrap.grid { row-gap: 16px; }
+  .stack-icons, #skills .stack-icons { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 2px; }
+  .stack-icons .ic-chip { height: 24px; padding: 0 var(--s-2); font-size: var(--t-label); }
+  .approach-wrap { gap: var(--s-4); }
   .approach-facts, .skill-grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
-  .enquiry-panel { padding: var(--s-4); }
+  .approach-facts dd { font-size: var(--t-small); line-height: 1.4; }
   .enquiry-panel .form { gap: var(--s-2); }
-  .enquiry-panel textarea { min-height: 68px; }
-  .split-media { aspect-ratio: auto; height: 205px; }
-  #services .rows > li, #experience .rows > li { padding-block: var(--s-2); }
-  #services .stack-4, #experience .stack-4, #enquiry .stack-4 { gap: var(--s-3); }
-  #work .section-head { margin-bottom: var(--s-4); }
-  #work .tile { gap: var(--s-2); --tile-ratio: 16 / 10; }
-  #work .tile:nth-child(3) { --tile-ratio: 16 / 9; }
-  #work .tile__facts { margin-top: 0; }
+  .enquiry-panel textarea { min-height: 64px; }
+  .split-media, .enquiry-media { aspect-ratio: auto; height: 155px; }
+  #services .split-media { height: 132px; }
+  #enquiry > .wrap.grid { row-gap: 24px; }
+  #enquiry .enquiry-media { height: 146px; }
+  #services .section-head { margin-bottom: 4px; }
+  #services .rows > li { padding-block: 4px; gap: 2px var(--s-3); }
+  #experience .rows > li { padding-block: 6px; gap: 2px var(--s-3); }
+  #services .rows > li > p { grid-column: 1 / -1; font-size: var(--t-small); line-height: 1.32; }
+  #experience .rows > li > p { grid-column: 1 / -1; font-size: var(--t-small); line-height: 1.38; }
+  #services .rows__name small, #experience .rows__name small { font-size: var(--t-label); }
+  #services .stack-4 { gap: 6px; }
+  #experience .stack-4, #enquiry .stack-4 { gap: var(--s-2); }
+  #enquiry .section-head p { font-size: var(--t-small); line-height: 1.4; }
+  #work .section-head { margin-bottom: var(--s-2); gap: 4px; }
+  #work .section-head p { font-size: var(--t-small); line-height: 1.38; }
+  #work .grid { row-gap: 8px; }
+  #work .tile { gap: 4px; --tile-ratio: 16 / 9; }
+  #work .tile__head > h3 { font-size: var(--t-body); line-height: 1.25; }
+  #work .tile__facts { margin-top: 0; font-size: var(--t-label); }
+  #work .tile > p:not(.tile__facts) { font-size: var(--t-small); line-height: 1.36; }
+  #work .tile:nth-child(3) .tile__media { aspect-ratio: auto; height: 128px; }
+  #all-projects .tile__media, #more-projects .tile__media { width: 100%; height: 190px; }
   main > #process[data-moment="pinned-chapters"]:not(.is-live) { min-height: 200lvh; }
-  footer.closing > .wrap { row-gap: var(--s-5); }
+  #process:not(.is-live) .mo-pc__text { gap: var(--s-7); }
+  #process:not(.is-live) .mo-pc__steps { gap: var(--s-7); }
+  #process:not(.is-live) .mo-pc__visual > img { aspect-ratio: 4 / 3; max-height: 33svh; }
+  footer.closing > .wrap { row-gap: var(--s-4); }
   footer.closing .closing__cta { gap: var(--s-3); }
-  footer.closing .closing__links { gap: var(--s-4); }
-  footer.closing .closing__links > .grid { row-gap: var(--s-4); }
+  footer.closing .closing__cta .section-head { gap: var(--s-2); }
+  footer.closing .closing__cta p { font-size: var(--t-small); line-height: 1.4; }
+  footer.closing .closing__links { gap: var(--s-3); }
+  footer.closing .closing__links > .grid { row-gap: var(--s-3); }
+  .footer__legal .socials a { justify-content: center; }
 }
 `;
 
